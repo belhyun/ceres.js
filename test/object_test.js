@@ -13,4 +13,19 @@ var src = {
 };
 var dst = {};
 console.log(ceres.O.mixin(src,dst));
+var dom = document.createElement("button");
+console.log(ceres.O.isNotElement(dom));
+var source = {
+  a:1,
+  b:2
+};
+console.log(ceres.O.clone(source));
+source = [1,2,3];
+console.log(ceres.O.clone(source));
 */
+var source = {
+  a:1,
+  b:2,
+  c:3
+};
+console.log(ceres.O.pick(source,['a','b']));

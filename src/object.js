@@ -16,20 +16,40 @@
     });
     return mixin;
   };
-  var isEqual = _.isEqual;
-  var isEmpty = _.isEmpty;
   var take = function take(fn, times, base){
     if(times <= 1){
       return fn(base);
     }
     return fn(take(fn, times-1, base));
   };
+  var isElement = _.isElement;
+  var isNotElement = function(dom){
+    return not(isElement(dom));
+  };
+  var isArray = _.isArray;
+  var clone = function(obj){
+    if(!isObject(obj)) throw new TypeError;
+    if(isArray(obj) || isObject(obj)){
+      return isArray(obj) ? obj.slice() : _.clone(obj);
+    }
+  };
+  var pick = function(obj, keys){
+    if(!isArray(keys) || !isObject(obj)){
+      return new TypeError;
+    }
+    return _.pick(obj, keys);
+  };
 
-  $_.O.not = not;
-  $_.O.extend = extend;
-  $_.O.isObject = isObject;
-  $_.O.isEqual = isEqual;
-  $_.O.isEmpty = isEmpty;
-  $_.O.mixin = mixin;
-  $_.O.take = take;
+  extend($_.O,{
+    not: not,
+    extend: extend,
+    isObject: isObject,
+    mixin: mixin,
+    take: take,
+    isElement: isElement,
+    isNotElement: isNotElement,
+    isArray: isArray,
+    clone: clone,
+    pick: pick
+  });
 }).call(this,ceres);
