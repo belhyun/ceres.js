@@ -1,5 +1,6 @@
 (function($_){
   $_.N.namespace("ceres.O");
+  var nativeEncode = encodeURIComponent;
   var each = $_.C.each;
   var map = $_.C.map;
   var curry = $_.F.curry;
@@ -7,6 +8,7 @@
   var not = curry(function(operator,operand){return operator.call(this,operand);}, $_.B.op["!"]);
   var extend = _.extend;
   var isObject = _.isObject;
+  var isUndefined = _.isUndefined;
   var mixin = function(obj, mixin){
     if(!isObject(obj) || !isObject(mixin)){
       return new TypeError;
@@ -40,6 +42,32 @@
     return _.pick(obj, keys);
   };
 
+  var toQueryString = function(obj){
+    var res = [];
+    if(!isObject(obj)){
+      throw new TypeError();
+    }
+    function toQueryPair(k, v){
+      key = nativeEncode(k);
+      if(isUndefined(v)){
+        return k;
+      }
+      return k + '=' + nativeEncode(v);
+    }
+    map(obj, function(v,k){
+      res.push(toQueryPair(k, v));
+    });
+    
+    return res.join('&');
+  };
+
+  var omit = function(obj, keys){
+    if(!isObject(obj) || isUndefined(keys)){
+      throw new TypeError;
+    }
+    return _.omit(obj, keys);
+  };
+
   extend($_.O,{
     not: not,
     extend: extend,
@@ -48,8 +76,11 @@
     take: take,
     isElement: isElement,
     isNotElement: isNotElement,
+    isUndefined: isUndefined,
     isArray: isArray,
     clone: clone,
-    pick: pick
+    pick: pick,
+    toQueryString: toQueryString,
+    omit: omit
   });
 }).call(this,ceres);

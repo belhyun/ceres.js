@@ -22,10 +22,17 @@ var source = {
 console.log(ceres.O.clone(source));
 source = [1,2,3];
 console.log(ceres.O.clone(source));
-*/
 var source = {
   a:1,
   b:2,
   c:3
 };
 console.log(ceres.O.pick(source,['a','b']));
+console.log(ceres.O.toQueryString(source));
+var source = {
+  a:1,
+  b:2,
+  c:3
+};
+console.log(ceres.O.omit(source, 'a'));
+*/
