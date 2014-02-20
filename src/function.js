@@ -31,16 +31,31 @@
        return fn.apply(this, native_slice.call(arguments, n));
      };
    };
-   
-   var bind = function(func, context){
-     if (!isFunction(func)) throw new TypeError;
-     return _.bind(func, context, native_slice.call(arguments, 2));
+   var bind = _.bind;
+   var wrap = function(func, wrapper){
+     if(!isFunction(func)) throw new TypeError;
+     return function(){
+       var a = $_.A.union([bind(func, this)], arguments);
+       return wrapper.apply(this ,a);
+     };
+   };
+   var before = function(after, pre, stop){
+     if(!isFunction(after)|| !isFunction(pre)) throw new TypeError;
+     return function(){
+       var pres;
+       if(!(pres = pre.apply(this, arguments))&&stop) return pres;
+       return after.apply(this, arguments);
+     };
    };
 
-   $_.F.memoize = memoize;
-   $_.F.compose = compose;
-   $_.F.curry = curry;
-   $_.F.partial = partial;
-   $_.F.extract = extract;
-   $_.F.bind = bind;
+   $_.B.extend($_.F,{
+     memoize: memoize,
+     compose: compose,
+     wrap: wrap,
+     curry: curry,
+     partial: partial,
+     extract: extract,
+     bind: bind,
+     before: before
+   });
 }).call(this,ceres);

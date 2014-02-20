@@ -46,6 +46,8 @@
       return a|b;
     }
   };
+  var extend = _.extend;
   $_.B.op = op;
+  $_.B.extend = extend;
 }).call(this,ceres);
 

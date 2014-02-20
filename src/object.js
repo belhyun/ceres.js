@@ -6,7 +6,6 @@
   var curry = $_.F.curry;
   var compose = $_.F.compose;
   var not = curry(function(operator,operand){return operator.call(this,operand);}, $_.B.op["!"]);
-  var extend = _.extend;
   var isObject = _.isObject;
   var isUndefined = _.isUndefined;
   var mixin = function(obj, mixin){
@@ -68,9 +67,8 @@
     return _.omit(obj, keys);
   };
 
-  extend($_.O,{
+  $_.B.extend($_.O,{
     not: not,
-    extend: extend,
     isObject: isObject,
     mixin: mixin,
     take: take,
