@@ -47,6 +47,13 @@
        return after.apply(this, arguments);
      };
    };
+   var after = function(func, after){
+     if(!isFunction(func) || !isFunction(after)) throw new TypeError;
+     return function(){
+       var a = $_.A.union([func.apply(this, arguments)], arguments);
+       return after.apply(this, a);
+     };
+   };
 
    $_.B.extend($_.F,{
      memoize: memoize,
@@ -56,6 +63,7 @@
      partial: partial,
      extract: extract,
      bind: bind,
-     before: before
+     before: before,
+     after: after
    });
 }).call(this,ceres);
