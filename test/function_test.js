@@ -17,7 +17,6 @@ var after = function(a){
   console.log('after');
 };
 ceres.F.before(after, pre)();
-*/
 var after = function(a){
   return -a;
 };
@@ -25,4 +24,11 @@ var before = function(){
   return -1;
 };
 console.log(ceres.F.after(before, after)());
-
+var obj = {name: 'lee'};
+var obj2 = {name: 'kim'};
+function getName(obj){
+  return obj.name;
+}
+obj.getName = ceres.F.methodize(getName);
+console.log(obj.getName());
+*/

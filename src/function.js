@@ -54,6 +54,15 @@
        return after.apply(this, a);
      };
    };
+   var methodize = function(func){
+     if(func._methodized){
+       return func._methodized;
+     }
+     return func._methodized = function(){
+       var a = $_.A.union([this], native_slice.call(arguments,0));
+       return func.apply(null, a);
+     };
+   };
 
    $_.B.extend($_.F,{
      memoize: memoize,
@@ -64,6 +73,7 @@
      extract: extract,
      bind: bind,
      before: before,
-     after: after
+     after: after,
+     methodize: methodize
    });
 }).call(this,ceres);
