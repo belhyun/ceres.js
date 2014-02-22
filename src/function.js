@@ -6,6 +6,8 @@
    var memoize = _.memoize;
    var compose = _.compose;
    var isFunction = _.isFunction;
+   var now = _.now;
+   var once = _.once;
    var curry = function(fn){
     var args = native_slice.call(arguments, 1);
     return function() {
@@ -74,6 +76,8 @@
      bind: bind,
      before: before,
      after: after,
-     methodize: methodize
+     methodize: methodize,
+     now: now,
+     once: once
    });
 }).call(this,ceres);

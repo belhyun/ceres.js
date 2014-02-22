@@ -31,4 +31,8 @@ function getName(obj){
 }
 obj.getName = ceres.F.methodize(getName);
 console.log(obj.getName());
+console.log(ceres.F.now());
 */
+var once = ceres.F.once(function(){console.log(1)});
+once();
+once();
