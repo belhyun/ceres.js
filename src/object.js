@@ -66,6 +66,7 @@
     }
     return _.omit(obj, keys);
   };
+  var isNull = _.isNull;
 
   $_.B.extend($_.O,{
     not: not,
@@ -79,6 +80,7 @@
     clone: clone,
     pick: pick,
     toQueryString: toQueryString,
-    omit: omit
+    omit: omit,
+    isNull:isNull
   });
 }).call(this,ceres);
