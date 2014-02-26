@@ -1,6 +1,6 @@
 (function($_){
    $_.N.namespace("ceres.F");
-   var native_slice = Array.prototype.slice, has_own_property = Object.prototype.hasOwnProperty, fnProto = Function.prototype, nativeBind = fnProto.bind;
+   var nativeSlice = Array.prototype.slice, has_own_property = Object.prototype.hasOwnProperty, fnProto = Function.prototype, nativeBind = fnProto.bind;
    var each = $_.C.each;
    var map = $_.C.map;
    var memoize = _.memoize;
@@ -9,13 +9,13 @@
    var now = _.now;
    var once = _.once;
    var curry = function(fn){
-    var args = native_slice.call(arguments, 1);
+    var args = nativeSlice.call(arguments, 1);
     return function() {
-      return fn.apply(this, args.concat(native_slice.call(arguments)));
+      return fn.apply(this, args.concat(nativeSlice.call(arguments)));
     }
    };
    var partial = function(fn){
-     var args = native_slice.call(arguments, 1);
+     var args = nativeSlice.call(arguments, 1);
      return function() {
        var arg = 0;
        var a = args.slice();
@@ -30,7 +30,7 @@
    var extract = function(fn, n){
      _.isNull(n) && (n=1);
      return function(){
-       return fn.apply(this, native_slice.call(arguments, n));
+       return fn.apply(this, nativeSlice.call(arguments, n));
      };
    };
    var bind = _.bind;
@@ -61,7 +61,7 @@
        return func._methodized;
      }
      return func._methodized = function(){
-       var a = $_.A.union([this], native_slice.call(arguments,0));
+       var a = $_.A.union([this], nativeSlice.call(arguments,0));
        return func.apply(null, a);
      };
    };
@@ -78,6 +78,7 @@
      after: after,
      methodize: methodize,
      now: now,
-     once: once
+     once: once,
+     isFunction: isFunction
    });
 }).call(this,ceres);

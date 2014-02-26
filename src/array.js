@@ -1,7 +1,8 @@
 (function($_){
   $_.N.namespace("ceres.A");
   var union = _.union, nativeReduce = Array.prototype.reduce, each = $_.C.each,
-  map = $_.C.map, nativeFilter = Array.prototype.filter, nativeEntry = Array.prototype.every, nativeIndexOf = Array.prototype.indexOf;
+  map = $_.C.map, nativeFilter = Array.prototype.filter, nativeEntry = Array.prototype.every, nativeIndexOf = Array.prototype.indexOf
+  ,nativeSlice = Array.prototype.slice;
   var reduce = function(col, iterator, memo, context){
     var initial = arguments.length > 2;
     if($_.O.isNull(col == null)){
@@ -64,6 +65,16 @@
     }); 
     return false;
   };
+  
+  var invoke = function(col, method){
+    if($_.O.isNull(col)){
+      throw new TypeError();
+    }
+    var args = nativeSlice.call(arguments, 2);
+    return each(col, function(obj){
+      return ($_.F.isFunction(method) ? method || obj: obj[method] ||  function(){}).apply(obj, args);
+    });
+  };
 
   $_.B.extend($_.A,{
     union: union,
@@ -74,6 +85,7 @@
     initial: initial,
     filter: filter,
     every: every,
-    include: include
+    include: include,
+    invoke: invoke
   });
 }).call(this,ceres);
