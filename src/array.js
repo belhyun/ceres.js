@@ -75,6 +75,36 @@
       return ($_.F.isFunction(method) ? method || obj: obj[method] ||  function(){}).apply(obj, args);
     });
   };
+  var pluck = _.pluck;
+  var max = function(col, iterator, context){
+    if($_.O.isNull(col)){
+      throw new TypeError();
+    }
+    iterator = iterator || function(v){return v;};
+    var result = reduce(col, function(memo,value){
+      var computed = iterator.call(context, value);
+      if(memo.computed < computed){
+        memo.computed = computed;memo.value = value;
+      }
+      return memo;
+    },{computed: -Infinity});
+    return result.value;
+  };
+
+  var min = function(col, iterator, context){
+    if($_.O.isNull(col)){
+      throw new TypeError();
+    }
+    iterator = iterator || function(v){return v;};
+    var result = reduce(col, function(memo,value){
+      var computed = iterator.call(context, value);
+      if(memo.computed > computed){
+        memo.computed = computed;memo.value = value;
+      }
+      return memo;
+    },{computed: Infinity});
+    return result.value;
+  };
 
   $_.B.extend($_.A,{
     union: union,
@@ -86,6 +116,9 @@
     filter: filter,
     every: every,
     include: include,
-    invoke: invoke
+    invoke: invoke,
+    pluck: pluck,
+    max: max,
+    min: min
   });
 }).call(this,ceres);
