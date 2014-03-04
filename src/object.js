@@ -8,6 +8,7 @@
   var not = curry(function(operator,operand){return operator.call(this,operand);}, $_.B.op["!"]);
   var isObject = _.isObject;
   var isUndefined = _.isUndefined;
+  var isBoolean = _.isBoolean;
   var mixin = function(obj, mixin){
     if(!isObject(obj) || !isObject(mixin)){
       return new TypeError;
@@ -81,6 +82,7 @@
     pick: pick,
     toQueryString: toQueryString,
     omit: omit,
-    isNull:isNull
+    isNull:isNull,
+    isBoolean:isBoolean
   });
 }).call(this,ceres);
