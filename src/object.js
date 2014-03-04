@@ -68,6 +68,7 @@
     return _.omit(obj, keys);
   };
   var isNull = _.isNull;
+  var isArray = _.isArray;
 
   $_.B.extend($_.O,{
     not: not,
@@ -83,6 +84,7 @@
     toQueryString: toQueryString,
     omit: omit,
     isNull:isNull,
-    isBoolean:isBoolean
+    isBoolean:isBoolean,
+    isArray:isArray
   });
 }).call(this,ceres);

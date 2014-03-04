@@ -106,6 +106,12 @@
     return result.value;
   };
 
+  var shuffle = _.shuffle;
+  var sort = function(arr, sort){
+    if(!$_.O.isArray(arr)) return new TypeError();
+    return arr.sort(sort);
+  }
+
   $_.B.extend($_.A,{
     union: union,
     reduce: reduce,
@@ -119,6 +125,8 @@
     invoke: invoke,
     pluck: pluck,
     max: max,
-    min: min
+    min: min,
+    shuffle: shuffle,
+    sort: sort
   });
 }).call(this,ceres);
