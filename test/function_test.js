@@ -35,4 +35,20 @@ console.log(ceres.F.now());
 var once = ceres.F.once(function(){console.log(1)});
 once();
 once();
+var fn1 = function(){
+  return true;
+};
+var fn2 = function(){
+  return false;
+};
+console.log(ceres.F.or(fn1,fn2));
+console.log(ceres.F.and(fn1,fn2));
 */
+var obj = {
+  label: 'ceres.js',
+  fn1: function(){console.log(this.label)}
+};
+obj.fn1.call(this);
+ceres.F.bindAll(obj,'fn1');
+obj.fn1.call(this);
+

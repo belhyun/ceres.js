@@ -65,7 +65,26 @@
        return func.apply(null, a);
      };
    };
+   var or = function(){
+     var fns = $_.A.filter(nativeSlice.call(arguments),$_.F.isFunction);
+     for(var i=0; i<fns.length; i++){
+       if(fns[i].apply(this, arguments)){
+         return true;
+       }
+     }
+     return false;
+   };
+   var and = function(){
+     var fns = $_.A.filter(nativeSlice.call(arguments),$_.F.isFunction);
+     for(var i=0; i<fns.length; i++){
+       if(!fns[i].apply(this, arguments)){
+         return false;
+       }
+     }
+     return true;
+   };
 
+   var bindAll = _.bindAll;
    $_.B.extend($_.F,{
      memoize: memoize,
      compose: compose,
@@ -79,6 +98,9 @@
      methodize: methodize,
      now: now,
      once: once,
-     isFunction: isFunction
+     isFunction: isFunction,
+     or: or,
+     and: and,
+     bindAll: bindAll
    });
 }).call(this,ceres);
