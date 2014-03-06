@@ -43,7 +43,6 @@ var fn2 = function(){
 };
 console.log(ceres.F.or(fn1,fn2));
 console.log(ceres.F.and(fn1,fn2));
-*/
 var obj = {
   label: 'ceres.js',
   fn1: function(){console.log(this.label)}
@@ -51,4 +50,4 @@ var obj = {
 obj.fn1.call(this);
 ceres.F.bindAll(obj,'fn1');
 obj.fn1.call(this);
-
+*/

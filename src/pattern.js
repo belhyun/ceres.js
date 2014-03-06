@@ -3,19 +3,15 @@
   var validator = {
     types: {},
     isValid: function(types, data){
-      var cnt = 0;
       for(var i=0; i<types.length; i++){
-        checker = this.types[types[i]];
-        if(checker.isValid.call(checker,data)){
-          cnt++;
+        var checker = this.types[types[i]];
+        if(!checker.isValid.call(checker,data)){
+          return false;
         }
       }
-      if(types.length == cnt){
-        return true;
-      }
-      return false;
+      return true;
     }
-  }
+  };
 
   var Cmd = function(arg){
     this.arg = arg;
