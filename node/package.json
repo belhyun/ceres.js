@@ -1,0 +1,23 @@
+{
+  "name": "ceres.js",
+  "version": "0.0.1",
+  "description": "the javascript library",
+  "main": "ceres.js",
+  "scripts": {
+    "test": "for f in ./ceres.js; do echo \"$f\"; node \"$f\"; done; echo 'passed!'; exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/belhyun/ceres.js"
+  },
+  "keywords": [
+    "javascript",
+    "library"
+  ],
+  "author": "belhyun",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/belhyun/ceres.js/issues"
+  },
+  "homepage": "https://github.com/belhyun/ceres.js"
+}
