@@ -474,4 +474,4 @@ _ = require('underscore');
     isEmpty: isEmpty
   });
 }).call(this,ceres);
-exports.ceres = ceres;
+exports = ceres;

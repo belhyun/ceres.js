@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>Node Study</title>
+
+  <link rel="stylesheet" href="stylesheets/reset.css">
+
+    <link rel="stylesheet" href="stylesheets/style.css" media="screen" type="text/css" />
+
+</head>
+
+<body>
+
+  <div class="container">
+    <div id="log"><ul></ul></div>
+		<div class="puzzle">
+			<ul>
+			<li id='i0' style='background : url(../images/yuna.png) 0 0; '></li>
+			<li id='i1' style='background : url(../images/yuna.png) -100px 0; '></li>
+			<li id='i2' class='empty'></li>
+			<li id='i3' style='background : url(../images/yuna.png) 0 -100px; '></li>
+			<li id='i4' style='background : url(../images/yuna.png) -100px -100px; '></li>
+			<li id='i5' style='background : url(../images/yuna.png) -200px -100px; '></li>
+			<li id='i6' style='background : url(../images/yuna.png) 0 -200px; '></li>
+			<li id='i7' style='background : url(../images/yuna.png) -100px -200px; '></li>
+			<li id='i8' style='background : url(../images/yuna.png) -200px -200px;'></li>
+			</ul>
+		</div>	
+
+		<div class="p-t">
+			<div class="pattern"></div>
+    </div>
+    <div id="timer" class="timer">  
+      0:00
+    </div>
+		<div class="badboy"></div>
+	</div>
+
+  <script src='http://code.jquery.com/jquery-2.1.0.min.js'></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="javascripts/index.js"></script>
+  <script src="javascripts/connect.js"></script>
+</body>
+</html>
