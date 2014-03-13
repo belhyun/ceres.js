@@ -72,9 +72,6 @@
   var isString = _.isString;
   var isEmpty = _.isEmpty;
   var memoize = function(dest, source){
-    if(!isObject(dest) || !isObject(source)){
-      throw new TypeError;
-    }
     if(isUndefined(dest)){
       return source;
     }
