@@ -75,10 +75,10 @@
     if(!isObject(dest) || !isObject(source)){
       throw new TypeError;
     }
-    if(!dest.hasOwnProperty('memo') && isUndefined(dest.memo)){
-      dest.memo = {};dest.memo = source;
-    }    
-    return dest.memo;
+    if(isUndefined(dest)){
+      return source;
+    }
+    return dest;
   };
   $_.B.extend($_.O,{
     not: not,
