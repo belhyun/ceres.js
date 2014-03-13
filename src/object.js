@@ -73,7 +73,7 @@
   var isEmpty = _.isEmpty;
   var memoize = function(dest, source){
     if(isUndefined(dest)){
-      return source;
+      dest = source;
     }
     return dest;
   };
