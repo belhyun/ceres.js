@@ -36,3 +36,4 @@ var source = {
 };
 console.log(ceres.O.omit(source, 'a'));
 */
+console.log(ceres.O.isEmpty({}));

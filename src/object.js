@@ -70,6 +70,7 @@
   var isNull = _.isNull;
   var isArray = _.isArray;
   var isString = _.isString;
+  var isEmpty = _.isEmpty;
   $_.B.extend($_.O,{
     not: not,
     isObject: isObject,
@@ -86,6 +87,7 @@
     isNull:isNull,
     isBoolean:isBoolean,
     isArray:isArray,
-    isString:isString
+    isString:isString,
+    isEmpty:isEmpty
   });
 }).call(this,ceres);
