@@ -35,5 +35,9 @@ var source = {
   c:3
 };
 console.log(ceres.O.omit(source, 'a'));
-*/
 console.log(ceres.O.isEmpty({}));
+*/
+var a = {c:1};
+var b = {c:2};
+console.log(ceres.O.memoize(a,b).c);
+console.log(ceres.O.memoize(a,b).c);

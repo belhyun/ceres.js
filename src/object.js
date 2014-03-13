@@ -71,6 +71,15 @@
   var isArray = _.isArray;
   var isString = _.isString;
   var isEmpty = _.isEmpty;
+  var memoize = function(dest, source){
+    if(!isObject(dest) || !isObject(source)){
+      throw new TypeError;
+    }
+    if(!dest.hasOwnProperty('memo') && isUndefined(dest.memo)){
+      dest.memo = {};dest.memo = source;
+    }    
+    return dest.memo;
+  };
   $_.B.extend($_.O,{
     not: not,
     isObject: isObject,
@@ -88,6 +97,7 @@
     isBoolean:isBoolean,
     isArray:isArray,
     isString:isString,
-    isEmpty:isEmpty
+    isEmpty:isEmpty,
+    memoize:memoize
   });
 }).call(this,ceres);
