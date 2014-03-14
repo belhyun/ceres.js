@@ -30,7 +30,7 @@
         obj[kval[0]] = kval[1];
       }
     });
-    if(!$_.O.isNull(res = $_.O.pick(obj,[searchKey]))){
+    if(!$_.O.isEmpty(res = $_.O.pick(obj,[searchKey]))){
       return res[searchKey];
     }
     return null;
