@@ -14,9 +14,25 @@
     truncation = $_.O.isUndefined(truncation)?'...':truncation;
     return str.length > length ? str.slice(0, length) + truncation : String(str);
   };
+  var join = function(obj, d, s){
+    var arrStr = [];
+    if(!$_.O.isObject(obj)){
+      throw new TypeError;
+    } 
+    $_.C.map(obj, function(v, k){
+      arrStr.push(k + d + v);
+    });
+    return arrStr.join(s);
+  };
+  var trim = function(str){
+    if(!$_.O.isString(str)) throw new TypeError();
+    return str.replace(/^\s+/, '').replace(/\s+$/, '');
+  };
   $_.B.extend($_.S,{
     isEmpty: isEmpty,
-    truncate: truncate
+    truncate: truncate,
+    join: join,
+    trim: trim
   });
 }).call(this,ceres);
 

@@ -25,5 +25,3 @@ var sort = function(a,b){
 }
 console.log(ceres.A.sort([5,3,4,1,2],sort));
 */
-var ary = [test:1];
-console.log(ceres.A.pluck(ary,'test'));
