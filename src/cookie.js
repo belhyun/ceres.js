@@ -23,17 +23,17 @@
   };
 
   var get = function(searchKey){
-    var dc = document.cookie, arrDc = dc.split(';'), res;
-    if($_.O.isNull(res = $_.C.map(arrDc, function(v, k){
+    var dc = document.cookie, arrDc = dc.split(';'), res, obj={};
+    $_.C.map(arrDc, function(v, k){
       var kval = $_.S.trim(v).split('=');
       if($_.B.op["equals"](kval[0],searchKey)){
-        return kval[1];
+        obj[kval[0]] = kval[1];
       }
-    }))){
-      return null;
-    }else{
-      return res;
+    });
+    if(!$_.O.isNull(res = $_.O.pick(obj,[searchKey]))){
+      return res[searchKey];
     }
+    return null;
   };
   var del = function(key){
     set(key, '', 0);
