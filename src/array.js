@@ -110,7 +110,17 @@
   var sort = function(arr, sort){
     if(!$_.O.isArray(arr)) return new TypeError();
     return arr.sort(sort);
-  }
+  };
+  var toArray = function(args){
+    if($_.O.isNull(args)) return new TypeError();
+    if($_.O.isArray(args)) return args;
+    if($_.O.isArguments(args)){
+      return nativeSlice.call(args[0]);
+    }
+    var length = args.length || 0, results = new Array(length);
+    while(length--) results[length] = col[length];
+    return results;
+  };
 
   $_.B.extend($_.A,{
     union: union,
@@ -127,6 +137,7 @@
     max: max,
     min: min,
     shuffle: shuffle,
-    sort: sort
+    sort: sort,
+    toArray: toArray
   });
 }).call(this,ceres);

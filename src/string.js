@@ -28,11 +28,16 @@
     if(!$_.O.isString(str)) throw new TypeError();
     return str.replace(/^\s+/, '').replace(/\s+$/, '');
   };
+  var stripTags = function(str){
+    if(!$_.O.isString(str)) throw new TypeError();
+    return str.replace(/<\w+(\s+("[^"]*"|'[^']*'|[^>])+)?>|<\/\w+>/gi, '');
+  };
   $_.B.extend($_.S,{
     isEmpty: isEmpty,
     truncate: truncate,
     join: join,
-    trim: trim
+    trim: trim,
+    stripTags: stripTags
   });
 }).call(this,ceres);
 
