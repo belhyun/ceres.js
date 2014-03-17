@@ -72,7 +72,6 @@
   var isString = _.isString;
   var isEmpty = _.isEmpty;
   var isArguments = _.isArguments;
-  var clone = _.clone;
   $_.B.extend($_.O,{
     not: not,
     isObject: isObject,
@@ -91,7 +90,6 @@
     isArray:isArray,
     isString:isString,
     isEmpty:isEmpty,
-    isArguments:isArguments,
-    clone:clone
+    isArguments:isArguments
   });
 }).call(this,ceres);

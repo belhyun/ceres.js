@@ -47,7 +47,9 @@
     }
   };
   var extend = _.extend;
+  var clone = _.clone;
   $_.B.op = op;
   $_.B.extend = extend;
+  $_.B.clone = clone;
 }).call(this,ceres);
 
