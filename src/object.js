@@ -68,6 +68,7 @@
     return _.omit(obj, keys);
   };
   var memoize = function(fn, memo){
+    if(!isObject(memo) || isNull(memo)) throw new TypeError;
     if(isUndefined(memo)) fn.call(this);
     else return memo;
   };
@@ -94,6 +95,7 @@
     isArray:isArray,
     isString:isString,
     isEmpty:isEmpty,
-    isArguments:isArguments
+    isArguments:isArguments,
+    memoize:memoize
   });
 }).call(this,ceres);
