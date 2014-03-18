@@ -5,4 +5,4 @@
 //console.log(ceres.S.stripTags('a <a href="#">link</a>'));
 //console.log(ceres.S.escapeHtml('<div>Blah blah blah</div>'));
 //console.log(ceres.S.unescapeHtml('&lt;div&gt;Blah blah blah&lt;/div&gt;'));
-console.log(ceres.S.toArray("123"));
+//console.log(ceres.S.toArray("123"));

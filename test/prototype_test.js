@@ -1,3 +1,4 @@
+/*
 var F = function(){
 };
 F.prototype.c = function(v){
@@ -10,3 +11,4 @@ console.log(f.a);
 console.log(f.b);
 f.c();
 console.log(f.d());
+*/

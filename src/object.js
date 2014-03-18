@@ -67,6 +67,10 @@
     }
     return _.omit(obj, keys);
   };
+  var memoize = function(fn, memo){
+    if(isUndefined(memo)) fn.call(this);
+    else return memo;
+  };
   var isNull = _.isNull;
   var isArray = _.isArray;
   var isString = _.isString;
