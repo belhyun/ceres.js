@@ -32,12 +32,27 @@
     if(!$_.O.isString(str)) throw new TypeError();
     return str.replace(/<\w+(\s+("[^"]*"|'[^']*'|[^>])+)?>|<\/\w+>/gi, '');
   };
+  var escapeHtml = function(str){
+    if(!$_.O.isString(str)) throw new TypeError();
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  };
+  var unescapeHtml = function(str){
+    if(!$_.O.isString(str)) throw new TypeError();
+    return stripTags(str).replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
+  };
+  var toArray = function(str){
+    if(!$_.O.isString(str)) throw new TypeError();
+    return str.split('');
+  };
   $_.B.extend($_.S,{
     isEmpty: isEmpty,
     truncate: truncate,
     join: join,
     trim: trim,
-    stripTags: stripTags
+    stripTags: stripTags,
+    escapeHtml: escapeHtml,
+    unescapeHtml: unescapeHtml,
+    toArray: toArray
   });
 }).call(this,ceres);
 
