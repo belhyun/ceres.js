@@ -44,6 +44,24 @@
     if(!$_.O.isString(str)) throw new TypeError();
     return str.split('');
   };
+  var succ = function(str){
+    if(!$_.O.isString(str)) throw new TypeError();
+    return str.slice(0, str.length-1)+String.fromCharCode(str.charCodeAt(str.length-1)+1);
+  };
+  var camelize = function(str){
+    if(!$_.O.isString(str)) throw new TypeError();
+    return str.replace(/[-|_]+(.)?/g, function(match,chr){
+      return chr ? chr.toUpperCase():'';
+    });
+  };
+  var underscored = function(str){
+    if(!$_.O.isString(str)) throw new TypeError();
+    return str.replace(/([A-Z]+)([A-Z][a-z])/g, '$1_$2')
+              .replace(/([a-z\d])([A-Z])/g, '$1_$2')
+              .replace(/-/g, '_')
+              .toLowerCase();
+  };
+
   $_.B.extend($_.S,{
     isEmpty: isEmpty,
     truncate: truncate,
@@ -52,7 +70,10 @@
     stripTags: stripTags,
     escapeHtml: escapeHtml,
     unescapeHtml: unescapeHtml,
-    toArray: toArray
+    toArray: toArray,
+    succ: succ,
+    camelize: camelize,
+    underscored: underscored
   });
 }).call(this,ceres);
 

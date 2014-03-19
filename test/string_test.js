@@ -6,3 +6,7 @@
 //console.log(ceres.S.escapeHtml('<div>Blah blah blah</div>'));
 //console.log(ceres.S.unescapeHtml('&lt;div&gt;Blah blah blah&lt;/div&gt;'));
 //console.log(ceres.S.toArray("123"));
+//console.log(ceres.S.succ('abcd'));
+//console.log(ceres.S.camelize('a_bcd'));
+//console.log(ceres.S.camelize('ab-cd'));
+console.log(ceres.S.underscored('MOZTransform'));

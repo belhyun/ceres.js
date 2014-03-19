@@ -50,10 +50,10 @@ var obj = {
 obj.fn1.call(this);
 ceres.F.bindAll(obj,'fn1');
 obj.fn1.call(this);
-*/
 var result = ceres.F.memoize(function(n){
     console.log(1);
     return n*n/n+n-n*n;
 });
 console.log(result(5));//-15
 console.log(result(6));//-15
+*/
