@@ -57,3 +57,6 @@ var result = ceres.F.memoize(function(n){
 console.log(result(5));//-15
 console.log(result(6));//-15
 */
+ceres.F.delay(function(){
+  console.log('delay');
+},3);

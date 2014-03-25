@@ -84,6 +84,15 @@
      return true;
    };
 
+   var delay = function(func, timeout){
+     if(!isFunction(func)) throw new TypeError;
+     var args = nativeSlice.call(arguments, 2);
+     timeout = timeout * 1000;
+     window.setTimeout(function(){
+       return func.apply(func, args);
+     }, timeout);
+   };
+
    var bindAll = _.bindAll;
    $_.B.extend($_.F,{
      memoize: memoize,
@@ -101,6 +110,7 @@
      isFunction: isFunction,
      or: or,
      and: and,
-     bindAll: bindAll
+     bindAll: bindAll,
+     delay: delay
    });
 }).call(this,ceres);

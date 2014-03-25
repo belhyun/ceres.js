@@ -61,6 +61,11 @@
               .replace(/-/g, '_')
               .toLowerCase();
   };
+  var dasherize = function(str){
+    if(!$_.O.isString(str)) throw new TypeError();
+    return str.replace(/_/g, '-');
+
+  };
 
   $_.B.extend($_.S,{
     isEmpty: isEmpty,
