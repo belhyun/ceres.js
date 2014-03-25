@@ -64,7 +64,14 @@
   var dasherize = function(str){
     if(!$_.O.isString(str)) throw new TypeError();
     return str.replace(/_/g, '-');
-
+  };
+  var include = function(str, pattern){
+    if(!$_.O.isString(str) || !$_.O.isString(pattern)) throw new TypeError();
+    return str.indexOf(pattern) > -1;
+  };
+  var startsWith = function(str, pattern){
+    if(!$_.O.isString(str) || !$_.O.isString(pattern)) throw new TypeError();
+    return str.lastIndexOf(pattern, 0) === 0;
   };
 
   $_.B.extend($_.S,{
@@ -78,7 +85,9 @@
     toArray: toArray,
     succ: succ,
     camelize: camelize,
-    underscored: underscored
+    underscored: underscored,
+    include: include,
+    startsWith: startsWith
   });
 }).call(this,ceres);
 

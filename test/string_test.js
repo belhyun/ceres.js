@@ -9,4 +9,6 @@
 //console.log(ceres.S.succ('abcd'));
 //console.log(ceres.S.camelize('a_bcd'));
 //console.log(ceres.S.camelize('ab-cd'));
-console.log(ceres.S.underscored('MOZTransform'));
+//console.log(ceres.S.underscored('MOZTransform'));
+//console.log(ceres.S.include('test', 'es'));
+console.log(ceres.S.startsWith('test', 'te'));
