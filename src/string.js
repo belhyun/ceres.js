@@ -73,7 +73,7 @@
     if(!$_.O.isString(str) || !$_.O.isString(pattern)) throw new TypeError();
     return str.lastIndexOf(pattern, 0) === 0;
   };
-  var strToNumber = function(str){
+  var strToNum = function(str){
     if(!str.match(/^\d*$/) || !$_.O.isString(str)) throw new TypeError;
     return Number(str);
   }
@@ -92,7 +92,7 @@
     underscored: underscored,
     include: include,
     startsWith: startsWith,
-    strToNumber: strToNumber
+    strToNum: strToNum
   });
 }).call(this,ceres);
 
