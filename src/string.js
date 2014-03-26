@@ -73,6 +73,10 @@
     if(!$_.O.isString(str) || !$_.O.isString(pattern)) throw new TypeError();
     return str.lastIndexOf(pattern, 0) === 0;
   };
+  var strToNumber = function(str){
+    if(!str.match(/^\d*$/) || !$_.O.isString(str)) throw new TypeError;
+    return Number(str);
+  }
 
   $_.B.extend($_.S,{
     isEmpty: isEmpty,
@@ -87,7 +91,8 @@
     camelize: camelize,
     underscored: underscored,
     include: include,
-    startsWith: startsWith
+    startsWith: startsWith,
+    strToNumber: strToNumber
   });
 }).call(this,ceres);
 

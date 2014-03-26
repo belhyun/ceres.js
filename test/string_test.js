@@ -11,4 +11,5 @@
 //console.log(ceres.S.camelize('ab-cd'));
 //console.log(ceres.S.underscored('MOZTransform'));
 //console.log(ceres.S.include('test', 'es'));
-console.log(ceres.S.startsWith('test', 'te'));
+//console.log(ceres.S.startsWith('test', 'te'));
+console.log(ceres.S.strToNumber('100'));
