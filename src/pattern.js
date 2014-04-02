@@ -48,7 +48,7 @@
   var Factory = function(){
   };
   Factory.prototype.get = function(base){
-    return new base(Array.prototype.slice.call(arguments,1));
+    return new (Function.prototype.bind.apply(base,arguments));
   };
   $_.B.extend($_.P,{
     validator: validator,
