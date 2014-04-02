@@ -76,7 +76,7 @@
   var strToNum = function(str){
     if(!str.match(/^\d*$/) || !$_.O.isString(str)) throw new TypeError;
     return Number(str);
-  }
+  };
 
   $_.B.extend($_.S,{
     isEmpty: isEmpty,
