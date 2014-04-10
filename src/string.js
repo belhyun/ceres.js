@@ -92,7 +92,7 @@
     underscored: underscored,
     include: include,
     startsWith: startsWith,
-    strToNum: strToNum
+    strToNum: strToNum,
   });
 }).call(this,ceres);
 
