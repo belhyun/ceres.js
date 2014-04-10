@@ -12,4 +12,4 @@
 //console.log(ceres.S.underscored('MOZTransform'));
 //console.log(ceres.S.include('test', 'es'));
 //console.log(ceres.S.startsWith('test', 'te'));
-console.log(ceres.S.strToNumber('100'));
+//console.log(ceres.S.strToNumber('100'));
