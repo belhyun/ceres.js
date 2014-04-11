@@ -683,6 +683,13 @@ var ceres  = ceres || {};
   });
 }).call(this,ceres);
 (function($_){
+  $_.N.namespace("ceres.U");
+  var template = _.template;
+  $_.B.extend($_.U,{
+    template:template
+  });
+}).call(this,ceres);
+(function($_){
   $_.N.namespace("ceres.STORE");
   var cache = {};
   var getStore = function(options){
