@@ -24,7 +24,6 @@ var Test = function(args){
   console.log(args);
 };
 console.log(ceres.P.factory.get(Test,0,1));
-*/
 var Test = function(a, b){
     this.a = a;
       this.b = b;
@@ -34,3 +33,4 @@ Test.prototype.log = function(){
 };
 var ins = ceres.P.factory.get(Test,'a', 'b');
 ins.log();
+*/

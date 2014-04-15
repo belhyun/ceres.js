@@ -73,9 +73,24 @@
     if(!$_.O.isString(str) || !$_.O.isString(pattern)) throw new TypeError();
     return str.lastIndexOf(pattern, 0) === 0;
   };
+  var endsWith = function(str, pattern){
+    if(!$_.O.isString(str)||!$_.O.isString(pattern)) throw new TypeError();
+    var d = str.length - pattern.length;
+    return d >= 0 && str.indexOf(pattern, d) === d;
+  };
   var strToNum = function(str){
     if(!str.match(/^\d*$/) || !$_.O.isString(str)) throw new TypeError;
     return Number(str);
+  };
+  var toElement = function(str){
+    if(!$_.O.isString(str)) throw new TypeError();
+    var el = document.createElement('div');
+    el.innerHTML = str;
+    return el.firstChild;
+  };
+  var lpad = function(str, length, padStr){
+    if(!$_.O.isString(str) || !$_.O.isNumber(length)) throw new TypeError();
+    return (new Array(length+1).join(padStr)+str).slice(-length);
   };
 
   $_.B.extend($_.S,{
@@ -93,6 +108,9 @@
     include: include,
     startsWith: startsWith,
     strToNum: strToNum,
+    endsWith: endsWith,
+    toElement: toElement,
+    lpad: lpad
   });
 }).call(this,ceres);
 

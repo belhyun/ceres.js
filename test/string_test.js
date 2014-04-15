@@ -13,3 +13,7 @@
 //console.log(ceres.S.include('test', 'es'));
 //console.log(ceres.S.startsWith('test', 'te'));
 //console.log(ceres.S.strToNumber('100'));
+//console.log(ceres.S.endsWith("test string", "ins"));
+//console.log(ceres.S.toElement("test"));
+//console.log("test".slice(-4));
+//console.log(ceres.S.lpad("1", 8, "0"));

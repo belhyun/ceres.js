@@ -76,6 +76,7 @@
   var isString = _.isString;
   var isEmpty = _.isEmpty;
   var isArguments = _.isArguments;
+  var isNumber = _.isNumber;
   $_.B.extend($_.O,{
     not: not,
     isObject: isObject,
@@ -95,6 +96,7 @@
     isString:isString,
     isEmpty:isEmpty,
     isArguments:isArguments,
-    memoize:memoize
+    memoize:memoize,
+    isNumber:isNumber
   });
 }).call(this,ceres);
