@@ -67,10 +67,20 @@
       this.fns[this.state].call(this,args);
     }
   };
+
+  function Deco(next,deco){
+    this.next = next;
+    this.deco = deco;
+  }
+  Deco.prototype.execute = function(val){
+    val = this.deco(val);
+    return this.next?this.next.execute(val):val;
+  };
   $_.B.extend($_.P,{
     validator: validator,
     cmdPattern: cmdPattern,
     factory: new Factory,
-    state: state
+    state: state,
+    deco: Deco
   });
 }).call(this,ceres);
