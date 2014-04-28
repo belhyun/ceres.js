@@ -50,9 +50,27 @@
   Factory.prototype.get = function(base){
     return new (Function.prototype.bind.apply(base,arguments));
   };
+  
+  var state = {
+    fns: [],
+    set: function(state){
+      this.state = state;
+    },
+    add: function(state,fn){
+      if(!$_.F.isFunction(fn)){
+        throw new TypeError();
+      }
+      this.fns[state] = fn;
+    },
+    run: function(){
+      var args = Array.prototype.slice.call(arguments,0);
+      this.fns[this.state].call(this,args);
+    }
+  };
   $_.B.extend($_.P,{
     validator: validator,
     cmdPattern: cmdPattern,
-    factory: new Factory
+    factory: new Factory,
+    state: state
   });
 }).call(this,ceres);
