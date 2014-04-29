@@ -92,6 +92,10 @@
     if(!$_.O.isString(str) || !$_.O.isNumber(length)) throw new TypeError();
     return (new Array(length+1).join(padStr)+str).slice(-length);
   };
+  var rpad = function(str, length, padStr){
+    if(!$_.O.isString(str) || !$_.O.isNumber(length)) throw new TypeError();
+    return (str + new Array(length+1).join(padStr)).slice(0,length);
+  };
 
   $_.B.extend($_.S,{
     isEmpty: isEmpty,
@@ -110,7 +114,8 @@
     strToNum: strToNum,
     endsWith: endsWith,
     toElement: toElement,
-    lpad: lpad
+    lpad: lpad,
+    rpad: rpad
   });
 }).call(this,ceres);
 
