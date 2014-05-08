@@ -86,6 +86,149 @@ var ceres  = ceres || {};
   $_.C.iterate = iterate;
 }).call(this,ceres);
 (function($_){
+  $_.N.namespace("ceres.A");
+  var union = _.union, nativeReduce = Array.prototype.reduce, each = $_.C.each,
+  map = $_.C.map, nativeFilter = Array.prototype.filter, nativeEntry = Array.prototype.every, nativeIndexOf = Array.prototype.indexOf
+  ,nativeSlice = Array.prototype.slice;
+  var reduce = function(col, iterator, memo, context){
+    var initial = arguments.length > 2;
+    if($_.O.isNull(col == null)){
+      throw new TypeError();
+    }
+    if(nativeReduce && _.isEqual(col.reduce, nativeReduce)){
+      if(context){
+        iterator = $_.F.bind(iterator, context);
+      } 
+      return initial? col.reduce(iterator, memo) : col.reduce(iterator);
+    }
+    map(col, function(v,k){
+      if(!initial){
+        memo = v;
+        initial = true;
+      }else{
+        memo = iterator.call(context, memo, v);
+      }
+    });
+    return memo;
+  };
+  var first = _.first;
+  var merge = union;
+  var last = _.last;
+  var initial = _.initial;
+  var filter = function(col, iterator, context){
+    var results = [];
+    if($_.O.isNull(col)){
+      throw new TypeError();
+    }
+    if(nativeFilter && $_.B.op["equals"](col.filter, nativeFilter)){
+      return col.filter(iterator, context);
+    } 
+    map(col, function(v,k){
+      if(iterator.call(context,v)){
+        results[results.length] = v;
+      }
+    });
+    return results;
+  };
+  var every = function(col, iterator, context){
+    if($_.O.isNull(col)){
+      throw new TypeError();
+    }
+    if(nativeEntry && col.every === nativeEntry){
+      return col.every(iterator, context);
+    }
+    return _.every(col, iterator, context);
+  };
+
+  var include = function(col, ele){
+    if($_.O.isNull(col)){
+      throw new TypeError();
+    }
+    if (nativeIndexOf && col.indexOf === nativeIndexOf){
+      return col.indexOf(ele) != -1;
+    }
+    each(col,function(v){
+      if($_.B.op["equals"](v,ele)) return true;
+    }); 
+    return false;
+  };
+  
+  var invoke = function(col, method){
+    if($_.O.isNull(col)){
+      throw new TypeError();
+    }
+    var args = nativeSlice.call(arguments, 2);
+    return each(col, function(obj){
+      return ($_.F.isFunction(method) ? method || obj: obj[method] ||  function(){}).apply(obj, args);
+    });
+  };
+  var pluck = _.pluck;
+  var max = function(col, iterator, context){
+    if($_.O.isNull(col)){
+      throw new TypeError();
+    }
+    iterator = iterator || function(v){return v;};
+    var result = reduce(col, function(memo,value){
+      var computed = iterator.call(context, value);
+      if(memo.computed < computed){
+        memo.computed = computed;memo.value = value;
+      }
+      return memo;
+    },{computed: -Infinity});
+    return result.value;
+  };
+
+  var min = function(col, iterator, context){
+    if($_.O.isNull(col)){
+      throw new TypeError();
+    }
+    iterator = iterator || function(v){return v;};
+    var result = reduce(col, function(memo,value){
+      var computed = iterator.call(context, value);
+      if(memo.computed > computed){
+        memo.computed = computed;memo.value = value;
+      }
+      return memo;
+    },{computed: Infinity});
+    return result.value;
+  };
+
+  var shuffle = _.shuffle;
+  var sort = function(arr, sort){
+    if(!$_.O.isArray(arr)) return new TypeError();
+    return arr.sort(sort);
+  };
+  var toArray = function(args){
+    if($_.O.isNull(args)) return new TypeError();
+    if($_.O.isArray(args)) return args;
+    if($_.O.isArguments(args)){
+      return nativeSlice.call(args[0]);
+    }
+    var length = args.length || 0, results = new Array(length);
+    while(length--) results[length] = col[length];
+    return results;
+  };
+
+  $_.B.extend($_.A,{
+    union: union,
+    reduce: reduce,
+    merge: union,
+    first: first,
+    last: last,
+    initial: initial,
+    filter: filter,
+    every: every,
+    include: include,
+    invoke: invoke,
+    pluck: pluck,
+    max: max,
+    min: min,
+    shuffle: shuffle,
+    sort: sort,
+    toArray: toArray
+  });
+}).call(this,ceres);
+(function($_){
    $_.N.namespace("ceres.F");
    var nativeSlice = Array.prototype.slice, has_own_property = Object.prototype.hasOwnProperty, fnProto = Function.prototype, nativeBind = fnProto.bind;
    var each = $_.C.each;
@@ -279,6 +422,7 @@ var ceres  = ceres || {};
   var isString = _.isString;
   var isEmpty = _.isEmpty;
   var isArguments = _.isArguments;
+  var isNumber = _.isNumber;
   $_.B.extend($_.O,{
     not: not,
     isObject: isObject,
@@ -298,150 +442,94 @@ var ceres  = ceres || {};
     isString:isString,
     isEmpty:isEmpty,
     isArguments:isArguments,
-    memoize:memoize
+    memoize:memoize,
+    isNumber:isNumber
   });
 }).call(this,ceres);
 (function($_){
-  $_.N.namespace("ceres.A");
-  var union = _.union, nativeReduce = Array.prototype.reduce, each = $_.C.each,
-  map = $_.C.map, nativeFilter = Array.prototype.filter, nativeEntry = Array.prototype.every, nativeIndexOf = Array.prototype.indexOf
-  ,nativeSlice = Array.prototype.slice;
-  var reduce = function(col, iterator, memo, context){
-    var initial = arguments.length > 2;
-    if($_.O.isNull(col == null)){
-      throw new TypeError();
-    }
-    if(nativeReduce && _.isEqual(col.reduce, nativeReduce)){
-      if(context){
-        iterator = $_.F.bind(iterator, context);
-      } 
-      return initial? col.reduce(iterator, memo) : col.reduce(iterator);
-    }
-    map(col, function(v,k){
-      if(!initial){
-        memo = v;
-        initial = true;
-      }else{
-        memo = iterator.call(context, memo, v);
+  $_.N.namespace("ceres.P");
+  var validator = {
+    types: {},
+    isValid: function(types, data){
+      for(var i=0; i<types.length; i++){
+        var checker = this.types[types[i]];
+        if(!checker.isValid.call(checker,data)){
+          return false;
+        }
       }
-    });
-    return memo;
-  };
-  var first = _.first;
-  var merge = union;
-  var last = _.last;
-  var initial = _.initial;
-  var filter = function(col, iterator, context){
-    var results = [];
-    if($_.O.isNull(col)){
-      throw new TypeError();
+      return true;
     }
-    if(nativeFilter && $_.B.op["equals"](col.filter, nativeFilter)){
-      return col.filter(iterator, context);
-    } 
-    map(col, function(v,k){
-      if(iterator.call(context,v)){
-        results[results.length] = v;
-      }
-    });
-    return results;
-  };
-  var every = function(col, iterator, context){
-    if($_.O.isNull(col)){
-      throw new TypeError();
-    }
-    if(nativeEntry && col.every === nativeEntry){
-      return col.every(iterator, context);
-    }
-    return _.every(col, iterator, context);
   };
 
-  var include = function(col, ele){
-    if($_.O.isNull(col)){
-      throw new TypeError();
+  var Cmd = function(arg){
+    this.arg = arg;
+  };
+  Cmd.prototype.execute = function(){
+    this.action.call(this, this.arg);
+  };
+  var maker = function(method, arg){
+    var c = function(){
+      Cmd.call(this,arg);
+    };
+    c.prototype = new Cmd;
+    c.prototype.action = method;
+    return new c;
+  };
+  function Macro(){
+    this.cmds = [];
+  }
+  Macro.prototype = new Cmd;
+  Macro.prototype.add = function(cmd){
+    this.cmds.push(cmd);
+  };
+  Macro.prototype.execute = function(){
+    for(var i=0;i<this.cmds.length;i++){
+      this.cmds[i].execute.call(this.cmds[i]);
     }
-    if (nativeIndexOf && col.indexOf === nativeIndexOf){
-      return col.indexOf(ele) != -1;
-    }
-    each(col,function(v){
-      if($_.B.op["equals"](v,ele)) return true;
-    }); 
-    return false;
+    this.cmds = [];
+  };
+  var cmdPattern = {
+    maker: maker,
+    macro: Macro,
+    cmd: Cmd
+  };
+  var Factory = function(){
+  };
+  Factory.prototype.get = function(base){
+    return new (Function.prototype.bind.apply(base,arguments));
   };
   
-  var invoke = function(col, method){
-    if($_.O.isNull(col)){
-      throw new TypeError();
-    }
-    var args = nativeSlice.call(arguments, 2);
-    return each(col, function(obj){
-      return ($_.F.isFunction(method) ? method || obj: obj[method] ||  function(){}).apply(obj, args);
-    });
-  };
-  var pluck = _.pluck;
-  var max = function(col, iterator, context){
-    if($_.O.isNull(col)){
-      throw new TypeError();
-    }
-    iterator = iterator || function(v){return v;};
-    var result = reduce(col, function(memo,value){
-      var computed = iterator.call(context, value);
-      if(memo.computed < computed){
-        memo.computed = computed;memo.value = value;
+  var state = {
+    fns: [],
+    set: function(state){
+      this.state = state;
+    },
+    add: function(state,fn){
+      if(!$_.F.isFunction(fn)){
+        throw new TypeError();
       }
-      return memo;
-    },{computed: -Infinity});
-    return result.value;
-  };
-
-  var min = function(col, iterator, context){
-    if($_.O.isNull(col)){
-      throw new TypeError();
+      this.fns[state] = fn;
+    },
+    run: function(){
+      var args = Array.prototype.slice.call(arguments,0);
+      this.fns[this.state].call(this,args);
     }
-    iterator = iterator || function(v){return v;};
-    var result = reduce(col, function(memo,value){
-      var computed = iterator.call(context, value);
-      if(memo.computed > computed){
-        memo.computed = computed;memo.value = value;
-      }
-      return memo;
-    },{computed: Infinity});
-    return result.value;
   };
 
-  var shuffle = _.shuffle;
-  var sort = function(arr, sort){
-    if(!$_.O.isArray(arr)) return new TypeError();
-    return arr.sort(sort);
+  function Deco(next,deco){
+    this.next = next;
+    this.deco = deco;
+  }
+  Deco.prototype.execute = function(val){
+    val = this.deco(val);
+    return this.next?this.next.execute(val):val;
   };
-  var toArray = function(args){
-    if($_.O.isNull(args)) return new TypeError();
-    if($_.O.isArray(args)) return args;
-    if($_.O.isArguments(args)){
-      return nativeSlice.call(args[0]);
-    }
-    var length = args.length || 0, results = new Array(length);
-    while(length--) results[length] = col[length];
-    return results;
-  };
-
-  $_.B.extend($_.A,{
-    union: union,
-    reduce: reduce,
-    merge: union,
-    first: first,
-    last: last,
-    initial: initial,
-    filter: filter,
-    every: every,
-    include: include,
-    invoke: invoke,
-    pluck: pluck,
-    max: max,
-    min: min,
-    shuffle: shuffle,
-    sort: sort,
-    toArray: toArray
+  $_.B.extend($_.P,{
+    validator: validator,
+    cmdPattern: cmdPattern,
+    factory: new Factory,
+    state: state,
+    deco: Deco
   });
 }).call(this,ceres);
 (function($_){
@@ -519,9 +607,28 @@ var ceres  = ceres || {};
     if(!$_.O.isString(str) || !$_.O.isString(pattern)) throw new TypeError();
     return str.lastIndexOf(pattern, 0) === 0;
   };
+  var endsWith = function(str, pattern){
+    if(!$_.O.isString(str)||!$_.O.isString(pattern)) throw new TypeError();
+    var d = str.length - pattern.length;
+    return d >= 0 && str.indexOf(pattern, d) === d;
+  };
   var strToNum = function(str){
     if(!str.match(/^\d*$/) || !$_.O.isString(str)) throw new TypeError;
     return Number(str);
+  };
+  var toElement = function(str){
+    if(!$_.O.isString(str)) throw new TypeError();
+    var el = document.createElement('div');
+    el.innerHTML = str;
+    return el.firstChild;
+  };
+  var lpad = function(str, length, padStr){
+    if(!$_.O.isString(str) || !$_.O.isNumber(length)) throw new TypeError();
+    return (new Array(length+1).join(padStr)+str).slice(-length);
+  };
+  var rpad = function(str, length, padStr){
+    if(!$_.O.isString(str) || !$_.O.isNumber(length)) throw new TypeError();
+    return (str + new Array(length+1).join(padStr)).slice(0,length);
   };
 
   $_.B.extend($_.S,{
@@ -539,6 +646,10 @@ var ceres  = ceres || {};
     include: include,
     startsWith: startsWith,
     strToNum: strToNum,
+    endsWith: endsWith,
+    toElement: toElement,
+    lpad: lpad,
+    rpad: rpad
   });
 }).call(this,ceres);
 
@@ -646,71 +757,6 @@ var ceres  = ceres || {};
   });
 }).call(this,ceres);
 (function($_){
-  $_.N.namespace("ceres.P");
-  var validator = {
-    types: {},
-    isValid: function(types, data){
-      for(var i=0; i<types.length; i++){
-        var checker = this.types[types[i]];
-        if(!checker.isValid.call(checker,data)){
-          return false;
-        }
-      }
-      return true;
-    }
-  };
-
-  var Cmd = function(arg){
-    this.arg = arg;
-  };
-  Cmd.prototype.execute = function(){
-    this.action.call(this, this.arg);
-  };
-  var maker = function(method, arg){
-    var c = function(){
-      Cmd.call(this,arg);
-    };
-    c.prototype = new Cmd;
-    c.prototype.action = method;
-    return new c;
-  };
-  function Macro(){
-    this.cmds = [];
-  }
-  Macro.prototype = new Cmd;
-  Macro.prototype.add = function(cmd){
-    this.cmds.push(cmd);
-  };
-  Macro.prototype.execute = function(){
-    for(var i=0;i<this.cmds.length;i++){
-      this.cmds[i].execute.call(this.cmds[i]);
-    }
-    this.cmds = [];
-  };
-  var cmdPattern = {
-    maker: maker,
-    macro: Macro,
-    cmd: Cmd
-  };
-  var Factory = function(){
-  };
-  Factory.prototype.get = function(base){
-    return new (Function.prototype.bind.apply(base,arguments));
-  };
-  $_.B.extend($_.P,{
-    validator: validator,
-    cmdPattern: cmdPattern,
-    factory: new Factory
-  });
-}).call(this,ceres);
-(function($_){
-  $_.N.namespace("ceres.U");
-  var template = _.template;
-  $_.B.extend($_.U,{
-    template:template
-  });
-}).call(this,ceres);
-(function($_){
   $_.N.namespace("ceres.STORE");
   var cache = {};
   var getStore = function(options){
@@ -741,5 +787,29 @@ var ceres  = ceres || {};
   };
   $_.B.extend($_.STORE, {
     getStore:getStore
+  });
+}).call(this,ceres);
+(function($_) {
+  $_.N.namespace("ceres.D");
+  var getToMNTimestamp = function(){
+    var currentDate = new Date();
+    var expirationDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()+1, 0, 0, 0);
+    return toTimestamp(expirationDate.getTime() - currentDate.getTime());
+  };
+
+  var toTimestamp = function(time){
+    if(!_.isNumber(time)) throw new TypeError();
+    return Math.floor(time/1000);
+  };
+  $_.B.extend($_.D,{
+    getToMNTimestamp: getToMNTimestamp,
+    toTimestamp: toTimestamp
+  });
+})(ceres);
+(function($_){
+  $_.N.namespace("ceres.U");
+  var template = _.template;
+  $_.B.extend($_.U,{
+    template:template
   });
 }).call(this,ceres);

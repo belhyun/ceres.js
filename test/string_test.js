@@ -17,4 +17,4 @@
 //console.log(ceres.S.toElement("test"));
 //console.log("test".slice(-4));
 //console.log(ceres.S.lpad("1", 8, "0"));
-console.log(ceres.S.rpad("1", 8, "0"));
+//console.log(ceres.S.rpad("1", 8, "0"));

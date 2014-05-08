@@ -41,9 +41,9 @@ ceres.P.state.add('state2',function(){
 });
 ceres.P.state.set('state1');
 ceres.P.state.run(1,2);
-*/
 console.log((new ceres.P.deco(new ceres.P.deco(null,function(val){
   return val+'::decorate';
 }),function(val){
   return 'original';
 })).execute());
+*/
